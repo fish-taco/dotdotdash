@@ -1,0 +1,1065 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Transformers Dash wireframe</title>
+    <style>
+        :root {
+            --bg: #fff;
+            --bg2: #fafafa;
+            --bg3: #fcfcfc;
+            --bg4: #f8f8f8;
+            --footer-bg: rgba(114,186,94,.15);
+            --code: #dc3958;
+            --code-text: #6C7757;
+            --code-comment: #9AA880;
+            --text-color: #555;
+            --pale-text: #999;
+            --info-box-text: #84613d;
+            --gs0: #eee;
+            --gs1: #CCC;
+            --gs2: #AAA;
+            --green1: #008f68;
+            --green2: #6DB65B;
+            --green3: #4AAE9B;
+            --yellow1: #EFBB35;
+            --yellow2: #dfa612;
+            --yellow3: #FAE042;
+            --subtle: rgba(0, 0, 0, .1);
+            --very-subtle: rgba(0, 0, 0, .05);
+            --top1: rgba(107, 183, 86, .95);
+            --top2: rgba(0, 143, 104, .95);
+            --subtle-green1: rgba(114, 186, 94, 0.55);
+            --subtle-green2: rgba(114, 186, 94, 0.05);
+            --subtle-yellow1: rgba(239, 187, 53, 0.6);
+            --subtle-yellow2: rgba(236, 198, 48, .1);
+            --subtle-yellow3: rgba(236, 198, 48, .3);
+            --fb: #3b5998;
+            --reddit: #FC471E;
+            --h-news: #F60;
+            --twitter: #00aced;
+            --cat-head: rgba(114, 186, 94, 0.1);
+            --front-text-color: #93a791;
+            --info-box-bg: rgba(255, 213, 70, 0.1)
+        }
+
+        body {
+            overflow:hidden;
+            background: var(--bg);
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            font-weight: 300;
+            transition: background-color .25s ease-out
+        }
+
+        .dark {
+            --bg: #222831;
+            --bg2: #181C22;
+            --bg3: #1A1D24;
+            --bg4: black;
+            --footer-bg: rgba(0, 0, 0, .3);
+            --code: #F59BAC;
+            --code-text: #FAD7A0;
+            --code-text: #FEE6C0;
+            --code-comment: #81899B;
+            --text-color: #F9FFEE;
+            --pale-text: #dfa612;
+            --info-box-text: antiquewhite;
+            --gs0: rgba(239, 187, 53, 0.6);
+            --gs1: rgba(239, 187, 53, 0.6);
+            --green1: #EFBB35;
+            --green2: #E84279;
+            --green3: #dfa612;
+            --top1: #302E24;
+            --top2: #28313E;
+            --subtle-green1: rgba(236, 198, 48, .1);
+            --subtle-green2: #1A1D24;
+            --subtle-yellow3: rgba(236, 198, 48, .1);
+            --fb: #fff;
+            --reddit: #fff;
+            --h-news: #fff;
+            --twitter: #fff;
+            --cat-head: #1A1D24;
+            --front-text-color: antiquewhite;
+            --info-box-bg: #1A1D24
+        }
+
+        @font-face {
+            font-family: "IBM Plex Mono ExtraLight";
+            src: url("https://d33wubrfki0l68.cloudfront.net/93c14637e006dca07c650bafe4619a1f1403c3bd/d88f4/assets/fonts/plex/ibmplexmono-extralightitalic-latin1.woff2") format("woff2"),url("https://d33wubrfki0l68.cloudfront.net/c544dcf01ed320d6b9d34cf951e081a118e268f5/63658/assets/fonts/plex/ibmplexmono-extralightitalic-latin1.woff") format("woff");
+            font-style: italic
+        }
+
+        .bigdiv {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .tablecell {
+            width: 220px;
+            float: left;
+            overflow: hidden;
+            padding-left: 5px;
+
+
+        }
+
+        .wrap-collabsible {
+            margin-bottom: 1.2rem 0;
+            overflow:hidden;
+        }
+
+        input[type='checkbox'] {
+            display: none;
+        }
+
+        .lbl-toggle {
+            display:block;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 1rem;
+            color: #1A1D24;
+            background: #88ffa1;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: all 0.25s ease-out;
+            overflow: hidden;
+            height: 51px;
+        }
+
+            .lbl-toggle:hover {
+                color: #898c8a;
+            }
+
+            .lbl-toggle::before {
+                content: ' ';
+                display: inline-block;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-left: 5px solid currentColor;
+                vertical-align: middle;
+                margin-right: .7rem;
+                transform: translateY(-2px);
+                transition: transform .2s ease-out;
+            }
+
+        .toggle:checked + .lbl-toggle::before {
+            transform: rotate(90deg) translateX(-3px);
+        }
+
+        .collapsible-content {
+            max-height: 0px;
+            overflow: auto;
+            transition: max-height .25s ease-in-out;
+
+        }
+
+        .toggle:checked + .lbl-toggle + .collapsible-content {
+            max-height: 350px;
+
+        }
+
+        .toggle:checked + .lbl-toggle {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+
+        }
+
+        .collapsible-content .content-inner {
+            display: inline-block;
+            background: #3f3f3f;
+            border-bottom: 1px solid #88ffa1;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            padding: .5rem 1rem;
+
+
+        }
+
+        .dropbtn {
+            background-color: #88ffa1;
+            color: #1A1D24;
+            padding: 16px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            text-align: center;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding-left:15px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                font-weight: bold;
+                font-family: monospace;
+                font-size: 1.2rem;
+                text-transform: uppercase;
+
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #c1ffce;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #c1ffce;
+        }
+
+        #Tlhead {
+          font-size: 0.8rem;
+          text-align: center;
+          position: relative;
+          display: block;
+          background-color: #333;
+          width: 180px;
+          height: 20px;
+          border-radius: 3px;
+          margin-left: 5px;
+        }
+        #traffic-light {
+          position: relative;
+          display: block;
+          float: left;
+          background-color: #333;
+          width: 180px;
+          height: 35px;
+          border-radius: 10px;
+          margin-left: 5px;
+        }
+
+        #circleG {
+            background: #59A14F;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin: 5px;
+            margin-left: 24px;
+            float:left;
+          }
+
+           #circleG .tooltiptext {
+              visibility: hidden;
+              width: 120px;
+              background-color: black;
+              color: #fff;
+              text-align: left;
+              border-radius: 6px;
+              padding: 5px 5px;
+              left: -10%;
+              top:100%;
+              font-family: monospace;
+              font-size: 1rem;
+
+              position: absolute;
+              z-index: 1;
+            }
+
+#circleG:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+        #circleR {
+            background: #E15E69;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin: 5px;
+            margin-left: 24px;
+            float:left;
+        }
+
+        #circleR .tooltiptext {
+           visibility: hidden;
+           width: 120px;
+           background-color: black;
+           color: #fff;
+           text-align: left;
+           border-radius: 6px;
+           padding: 5px 5px;
+           right: 10%;
+           top:100%;
+           font-family: monospace;
+           font-size: 1rem;
+
+           position: absolute;
+           z-index: 1;
+         }
+
+#circleR:hover .tooltiptext {
+visibility: visible;
+}
+
+        #circleY {
+            background: #EDC948;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin: 5px;
+            margin-left: 24px;
+            float:left;
+        }
+
+        #circleY .tooltiptext {
+           visibility: hidden;
+           width: 120px;
+           background-color: black;
+           color: #fff;
+           text-align: left;
+           border-radius: 6px;
+           padding: 5px 5px;
+
+           font-family: monospace;
+           font-size: 1rem;
+           top: 100%;
+            left: 50%;
+            margin-left: -60px;
+           position: absolute;
+           z-index: 1;
+         }
+
+#circleY:hover .tooltiptext {
+visibility: visible;
+}
+
+    </style>
+
+</head>
+<body class="dark">
+    <div class="padder" style="height:100px">
+
+
+
+      <div class="dropdown">
+        <button class="dropbtn" data-toggle="dropdown">Market</button>
+        <div class="dropdown-content">
+          <ul class="dropdown-menu">
+            <li><a href="#" class="small" data-value="option1" tabIndex="-1">
+              <input type="checkbox"/>All</a></li>
+              <li><a href="#" class="small" data-value="option2" tabIndex="-1">
+                <input type="checkbox"/>Ukraine</a></li>
+                <li><a href="#" class="small" data-value="option3" tabIndex="-1">
+                  <input type="checkbox"/>Poland</a></li>
+                  <li><a href="#" class="small" data-value="option4" tabIndex="-1">
+                    <input type="checkbox"/>Portugal</a></li>
+                    <li><a href="#" class="small" data-value="option5" tabIndex="-1">
+                      <input type="checkbox"/>Bulgaria</a></li>
+                      <li><a href="#" class="small" data-value="option6" tabIndex="-1">
+                        <input type="checkbox"/>Romania</a></li>
+                        <li><a href="#" class="small" data-value="option7" tabIndex="-1">
+                          <input type="checkbox"/>Uzbekistan</a></li>
+                          <li><a href="#" class="small" data-value="option8" tabIndex="-1">
+                            <input type="checkbox"/>Kazakhstan</a></li>
+                          </ul>
+                        </div>
+                      </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Platform</button>
+            <div class="dropdown-content">
+                <a href="#">All</a>
+                <a href="#">Desktop</a>
+                <a href="#">mWeb</a>
+                <a href="#">Android</a>
+                <a href="#">iOS</a>
+            </div>
+
+        </div>
+
+        <div class="dropdown" style="float:left; position:absolute; padding-left:15px"><a href="CustomerLensFramework.html"><img src="info-logo.gif" height="51" /></a> </div>
+
+        <div class="logo" style="float:right; position:relative; padding-right:15px"><img src="logo.gif" height="75" /></div>
+
+    </div>
+
+    <div class="bigdiv">
+        <img src="chart_vector2.gif" height="220" width="220" />
+        <img src="chart_vector2_2.gif" height="220" width="220" />
+        <img src="chart_vector2.gif" height="220" width="220" />
+        <img src="chart_vector2.gif" height="220" width="220" />
+    </div>
+    <div class="bigdiv">
+
+        <div class="tablecell">
+            <div class="wrap-collapsible">
+                <input id="collapsible" class="toggle" type="checkbox" style="float:left">
+                <label for="collapsible" class="lbl-toggle">Are We Growing?</label>
+                <div class="collapsible-content">
+                    <div class="content-inner">
+                        <p>
+                           <b>Are we growing at a high level?</b>
+                        </p>
+                        <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                        <p>
+                            Active Users
+                        </p>
+                        <div id="traffic-light">
+                        <div id="circleG">
+                           <span class="tooltiptext">March 2018 - 6,343,122<br /> March 2019 - 6,888,221<p style="color:#59A14F">111% &uarr;</p></span>
+                        </div>
+                        <div id="circleG">
+                          <span class="tooltiptext">February 2018 - 6,743,122<br /> March 2019 - 6,888,221<p style="color:#59A14F">102% &uarr;</p></span>
+                        </div>
+                        <div id="circleR">
+                          <span class="tooltiptext">W11 - 2,743,122<br /> W12 - 2,558,221<p style="color:#E15E69">97% &darr;</p></span>
+                        </div>
+                      </div>
+                        <p>
+                            NNLs
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                        </div>
+                        <p>
+                            Active Listings
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleR"></div>
+                          <div id="circleG"></div>
+                          <div id="circleR"></div>
+                        </div>
+                        <p>
+                          <b>Are we growing in a sustainable way?</b>
+                        </p>
+                        <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                        <p>
+                            Stickiness
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                          <div id="circleR"></div>
+                        </div>
+                        <p>
+                            Retention
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleR"></div>
+                          <div id="circleY"></div>
+                          <div id="circleR"></div>
+                        </div>
+                        <p>
+                            MUL/MAU
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                        </div>
+                        <p>
+                            EMUs
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                        </div>
+                        <p>
+                            FB NNLs
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                        </div>
+                        <p>
+                          <b>Are we growing a safe and trusted marketplace?</b>
+                        </p>
+                        <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                        <p>
+                            ATOs
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleY"></div>
+                        </div>
+                        <p>
+                            Fraudulent Listings
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleR"></div>
+                          <div id="circleY"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                            Reported Users
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                            Reported Listings
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleR"></div>
+                          <div id="circleY"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                          <b>Are we growing in a diversified way?</b>
+                        </p>
+                        <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                        <p>
+                            NNLs / Unique Buyers
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                            Category Diversity
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                            Platform Diversity
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleY"></div>
+                          <div id="circleG"></div>
+                        </div>
+                        <p>
+                            User Type Diversity
+                        </p>
+                        <div id="traffic-light">
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                          <div id="circleG"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tablecell">
+            <div class="wrap-collapsible">
+                <input id="collapsible2" class="toggle" type="checkbox">
+                <label for="collapsible2" class="lbl-toggle">Are we adding value?</label>
+                <div class="collapsible-content">
+                    <div class="content-inner">
+                      <p>
+                          <b>Do the buyers have good choices?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Zero Search Results
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Ad view at 10
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          CTR for top categories
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Ad views per AU
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Replies per AU
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Insufficient Ads
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                        <b>Do sellers get enough interest from buyers?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+
+                      <p>
+                          Ad views per 1,000 impressions
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Replies per ad view
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Share of ads without impression
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Share of sellers with paid ads
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Share of ads without ad view
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                        <b>Are buyers and sellers connecting?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          7-day listing liquidity
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Conversations
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Meaningful Conversations
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleR"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Same-day seller response rate
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                        <b>Are they making a successful deal?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          % of ads marked sold
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Reopen rate
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Completed deliveries
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Complaints per delivery transaction
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tablecell">
+            <div class="wrap-collapsible">
+                <input id="collapsible3" class="toggle" type="checkbox">
+                <label for="collapsible3" class="lbl-toggle">Are out customers Happy?</label>
+                <div class="collapsible-content">
+                    <div class="content-inner">
+
+                      <p>
+                          <b>Do we provide a reliable platform?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Availability
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          App Crashes
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                      </div>
+                      <p>
+                          APDEX Score
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Mean Time to Restore (MTTR)
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Downtime
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Defect Rate
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                        <b>Do customers complain to us?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                        <p>
+                          CS Tickets per 1,000 MAU
+                      </p>
+                      <div id="traffic-light">
+                      <div id="circleR"></div>
+                      <div id="circleY"></div>
+                      <div id="circleG"></div>
+                    </div>
+                      <p>
+                          Tech issue tickets per 1,000 MAU
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          # of 1 and 2 star app ratings
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                        <b>Do we react?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          First response rate
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        </div>
+                      <p>
+                          Average resolution time
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        </div>
+                      <p>
+                          Ticket reopen rate
+                      </p>
+                      <div id="traffic-light">
+                      <div id="circleR"></div>
+                      <div id="circleY"></div>
+                      <div id="circleG"></div>
+                      </div>
+                      <p>
+                          % of bugs fixed
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          # of product feature changes
+                      </p>
+                      <div id="traffic-light">
+                      <div id="circleR"></div>
+                      <div id="circleY"></div>
+                      <div id="circleG"></div>
+                    </div>
+                      <p>
+                          <b>How do customers react?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          CSAT
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          NPS
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        <div class="tablecell">
+            <div class="wrap-collapsible">
+                <input id="collapsible4" class="toggle" type="checkbox">
+                <label for="collapsible4" class="lbl-toggle">Are our customers willing to pay us?</label>
+                <div class="collapsible-content">
+                    <div class="content-inner">
+                      <p>
+                          <b>How much are we earning?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Gross revenue
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          ARPU
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          PMUL
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                          Ad revenue
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleY"></div>
+                      </div>
+                      <p>
+                        <b>How well have we monetized our users?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Paying listers / unique listers
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                      </div>
+                      <p>
+                          Paid listings / NNLs
+                      </p>
+                      <div id="traffic-light">
+                      <div id="circleR"></div>
+                      <div id="circleY"></div>
+                      <div id="circleG"></div>
+                    </div>
+                      <p>
+                          Promoted listings / NNLs
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          % retained paid users
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                        <div id="circleR"></div>
+                      </div>
+                      <p>
+                        <b>How much are we spending?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Marketing campaign spend
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Customer reimbursement
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                        <b>How much more can we earn?</b>
+                      </p>
+                      <div id="Tlhead">YoY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMoM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWoW</div>
+                      <p>
+                          Drop off rate - payments: post ad
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleG"></div>
+                        <div id="circleR"></div>
+                      </div>
+                      <p>
+                          Drop off rate - payments: extend ad
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                      <p>
+                          Drop off rate - payments: promote ad
+                      </p>
+                      <div id="traffic-light">
+                      <div id="circleR"></div>
+                      <div id="circleY"></div>
+                      <div id="circleG"></div>
+                    </div>
+                      <p>
+                          Drop off rate - posting flow
+                      </p>
+                      <div id="traffic-light">
+                        <div id="circleG"></div>
+                        <div id="circleY"></div>
+                        <div id="circleG"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        let myLabels = document.querySelectorAll('.lbl-toggle');
+
+        Array.from(myLabels).forEach(label => {
+            label.addEventListener('keydown', e => {
+                // 32 === spacebar
+                // 13 === enter
+                if (e.which === 32 || e.which === 13) {
+                    e.preventDefault();
+                    label.click();
+                };
+            });
+        });
+    </script>
+</body>
+</html>
